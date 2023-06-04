@@ -1,26 +1,27 @@
+import math
+
 class CalcMath:
     """This class contains all the math related functions of a calculator"""
 
     def __init__(self):
         self.operations = {'+': 'addition', '-': 'subtraction', '÷': 'division',
                            'X': 'multiplication', 'a'u'\u02E3': 'exponentiation',
-                           '√': 'square_root', 'a√x': 'nth_root', '±': 'negation'}
+                           '√': 'square_root', 'a√x': 'nth_root', '±': 'negation',
+                            'log': 'logarithm', 'mod': 'modulo'}
         return
     
     def calculate(self, operator, num1, num2=''):
-        operator = self.operations[operator]
+     operator = self.operations[operator]
+     method = getattr(self, operator)
 
-        if num2 == '':
-            result = eval('self.%s(%s)' % (operator, num1))
-        else:
-            result = eval('self.%s(%s,%s)' % (operator, num1, num2))
+     if num2 == '':
+        result = method(float(num1))
+     else:
+        result = method(float(num1), float(num2))
 
-        # Check if the result is a float datatype, then use the float.is_integer() method
-        #   to check if the result has no fractional part. If true, cast to an int and return
-        if isinstance(result, float):
-            if result.is_integer():
-                return int(result)
-        return result
+     if isinstance(result, float) and result.is_integer():
+         return int(result)
+     return result
 
     def addition(self, augend, addend):
         """augend + addend"""
@@ -56,3 +57,11 @@ class CalcMath:
     def nth_root(self, degree, radicand):
         """radicand ^ (1 / degree)"""
         return radicand ** (1.0 / degree)
+    
+    def logarithm(self, base, number):
+        """Returns the logarithm of a number"""
+        return math.log(number, base)
+    
+    def modulo(self, dividend, divisor):
+        """Returns the remainder of the division"""
+        return dividend % divisor

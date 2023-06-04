@@ -52,10 +52,16 @@ class Calculator:
         # Create the buttons for the operators that take 1 numeric input
         self.create_single_operand_button('√', 2, 0)
         self.create_single_operand_button('±', 6, 0)
+        self.create_single_operand_button('log', 3, 0)
+        self.create_single_operand_button('mod', 4, 0)
+
 
         # Create the special functional buttons such as equals and clear
         self.create_equals_button('=', 6, 3)
         self.create_clear_button('C', 1, 0)
+
+        # Bind keyboard inputs to the window
+        self.window.bind('<Key>', self.handle_keypress)
 
     # This function creates the buttons for the numerals
     def create_numeral_button(self, text, row, column):
@@ -142,6 +148,18 @@ class Calculator:
             self.entry.delete(0, tk.END)
             self.entry.insert(0, "Error: Invalid input")
         '''
+    def handle_keypress(self, event):
+     key = event.char
+     allowed_chars = "0123456789.+-*/=\x08"  # Allowed characters: digits, decimal point, operators, equals, and backspace
+
+     if key in allowed_chars:
+        if key == '=':  # Process equals sign
+            self.calculate()
+        elif key == '\x08':  # Process backspace/delete
+            self.entry.delete(len(self.entry.get()) - 1)
+        else:
+            self.numeral_helper(key)
+
 
     def run(self):
         self.window.mainloop()
@@ -149,3 +167,4 @@ class Calculator:
 if __name__ == "__main__":
     calc = Calculator()
     calc.run()
+    
