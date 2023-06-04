@@ -43,18 +43,18 @@ class Calculator:
 
         # Create the buttons for the operators that take 2 numeric inputs
         self.create_two_operand_button('÷', 2, 3)
-        self.create_two_operand_button('X', 3, 3)
+        self.create_two_operand_button(u'\u00D7', 3, 3) # Multiplication, using Unicode multiplication symbol
         self.create_two_operand_button('-', 4, 3)
         self.create_two_operand_button('+', 5, 3)
-        self.create_two_operand_button('a√x', 2, 1)
+        self.create_two_operand_button('x√a', 2, 1)
         self.create_two_operand_button('a'u'\u02E3', 2, 2) # Exponentiation, using Unicode superscript x
+        self.create_two_operand_button('log'u'\u2093''(a)', 1, 1) # Logarithm, using Unicode subscript a
+        self.create_two_operand_button('mod', 1, 3)
 
         # Create the buttons for the operators that take 1 numeric input
         self.create_single_operand_button('√', 2, 0)
         self.create_single_operand_button('±', 6, 0)
-        self.create_single_operand_button('log', 3, 0)
-        self.create_single_operand_button('mod', 4, 0)
-
+        self.create_single_operand_button('ln(x)', 1, 2)
 
         # Create the special functional buttons such as equals and clear
         self.create_equals_button('=', 6, 3)
@@ -110,6 +110,7 @@ class Calculator:
             result = "Error: non-numeric entry"
         self.entry.delete(0, tk.END)
         self.entry.insert(0, str(result))
+        self.clear_input_on_next_numeral = True
 
     # This function will store the value and operator in the self.number and self.operator variables
     #   until the equals button is pressed

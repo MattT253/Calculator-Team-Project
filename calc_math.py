@@ -5,9 +5,10 @@ class CalcMath:
 
     def __init__(self):
         self.operations = {'+': 'addition', '-': 'subtraction', '÷': 'division',
-                           'X': 'multiplication', 'a'u'\u02E3': 'exponentiation',
-                           '√': 'square_root', 'a√x': 'nth_root', '±': 'negation',
-                            'log': 'logarithm', 'mod': 'modulo'}
+                           u'\u00D7': 'multiplication', 'a'u'\u02E3': 'exponentiation',
+                           '√': 'square_root', 'x√a': 'nth_root', '±': 'negation',
+                           'log'u'\u2093''(a)': 'logarithm', 'mod': 'modulo',
+                           'ln(x)': 'natural_logarithm'}
         return
     
     def calculate(self, operator, num1, num2=''):
@@ -58,9 +59,13 @@ class CalcMath:
         """radicand ^ (1 / degree)"""
         return radicand ** (1.0 / degree)
     
-    def logarithm(self, base, number):
+    def logarithm(self, number, base):
         """Returns the logarithm of a number"""
         return math.log(number, base)
+    
+    def natural_logarithm(self, number):
+        """Returns the natual logarithm of a number"""
+        return math.log(number)
     
     def modulo(self, dividend, divisor):
         """Returns the remainder of the division"""
